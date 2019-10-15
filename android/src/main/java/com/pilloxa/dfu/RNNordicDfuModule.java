@@ -38,6 +38,9 @@ public class RNNordicDfuModule extends ReactContextBaseJavaModule implements Lif
             starter.setDeviceName(name);
         }
         starter.setUnsafeExperimentalButtonlessServiceInSecureDfuEnabled(true);
+        // (nejcet) Set lower Maximum Transfer Unit (MTU) value. Otherwise there are transmission problems with some manufacturers like Huawei.
+        // see: https://github.com/NordicSemiconductor/Android-DFU-Library/blob/bbecebe9a113b107bcc419d7e43f8392c36e2fd5/dfu/src/main/java/no/nordicsemi/android/dfu/DfuServiceInitiator.java#L317
+        starter.setMtu(247);
         starter.setZip(filePath);
         final DfuServiceController controller = starter.start(this.reactContext, DfuService.class);
     }
