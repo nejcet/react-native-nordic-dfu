@@ -196,6 +196,8 @@ RCT_EXPORT_METHOD(startDFU:(NSString *)deviceAddress
     reject(@"nil_central_manager_getter", @"Attempted to start DFU without central manager getter", nil);
   } else {
     CBCentralManager * centralManager = getCentralManager();
+    // (nejd) iOS 13 Workaround, see: https://github.com/Pilloxa/react-native-nordic-dfu/issues/78
+    [NSThread sleepForTimeInterval: 2];
 
     if (!centralManager) {
       reject(@"nil_central_manager", @"Call to getCentralManager returned nil", nil);
